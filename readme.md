@@ -7,5 +7,5 @@ https://hub.docker.com/
 
 ```mermaid
 flowchart LR
-Dockerfile -> Image -> Container
+Dockerfile --> Image --> Container
 ```
