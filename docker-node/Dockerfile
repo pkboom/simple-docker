@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:19
 
 # Set the working directory
 WORKDIR /app
@@ -6,4 +6,6 @@ WORKDIR /app
 # Copy all files from the current directory to the working directory
 COPY . /app
 
-CMD ["ls", "-lah"]
+RUN npm install
+
+CMD ["npm", "start"]
