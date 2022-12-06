@@ -6,11 +6,23 @@ Dockerfile -->|Build|Image -->|Execute|Container
 ```
 
 ```sh
-# List docker images
-docker images ls
+# List images
+docker images
+
+# Remove images
+docker rmi <image-id> <image-id>
+# Remove all images
+docker rmi $(docker images -q)
 
 # List running containers
 docker ps
+
+# Remove container
+docker rm
+# Stop all containers
+docker stop $(docker ps -a -q)
+# Remove all containers
+docker rm $(docker ps -a -q)
 
 # https://docs.docker.com/engine/reference/commandline/builder_build/
 # Build an image using Dockerfile
@@ -27,4 +39,4 @@ https://hub.docker.com/
 
 # .dockerignore
 
-Ignore specified files when copying files to workdir.
+Ignore specified files when copying files to WORKDIR.
