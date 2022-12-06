@@ -1,3 +1,9 @@
-FROM ubuntu:22.04
+FROM node:16
 
-CMD "echo 'Hello World'"
+# Set the working directory
+WORKDIR /app
+
+# Copy all files from the current directory to the working directory
+COPY . /app
+
+CMD ["ls", "-lah"]
