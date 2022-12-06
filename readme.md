@@ -35,9 +35,11 @@ docker run simple-docker:latest
 
 # Stop a container
 docker stop <container-id>
+
 > You can use a shorthand as long as it is unique
 
 > e.g. container-id=b43b178f8d2a
+
 > docker stop b43 -> as long as it's unique in the system
 ```
 
