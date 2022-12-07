@@ -4,8 +4,12 @@ FROM node:19
 WORKDIR /app
 
 # Copy all files from the current directory to the working directory
-COPY . /app
+COPY . .
 
 RUN npm install
+
+# VOLUME \
+#   /app/public \
+#   /app/src
 
 CMD ["npm", "start"]
