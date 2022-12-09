@@ -14,6 +14,10 @@ https://docs.docker.com/engine/reference/run/
 
 ```sh
 docker run -it -p 3000:3000 -v $PWD/storage:/storage simple-docker:latest
+docker run -it -p 3000:3000 \
+  -v $PWD/storage:/storage simple-docker:latest \
+  -v simple-storage:/simple-storage \
+  simple-docker:latest
 
 # -i: interactive, accepting ctrl-c
 # -t: tty
@@ -27,14 +31,20 @@ docker run -it -p 3000:3000 -v $PWD/storage:/storage simple-docker:latest
 docker run -it -p 3001:3000 simple-docker:latest
 # We can run multiple containers with different host ports mapped.
 
+docker run -it -p 3000:3000 --rm simple-docker:latest
+# Run a command, and delete the created container after exit. Great for one off commands
+
 docker container start <container-id>
-# Start <container-id>. This container is already created before you run the command.
+# Start <container-id>. You start the container that was already created.
 
 docker exec -it <container-id> <command>
 # Run a command in a running container
 
 docker exec -it 6a4 bash
 # Run `bash` in conatiner 6a4
+
+docker volume create <volume-name>
+# Create a volume
 
 docker volume ls
 # List all the volumes
