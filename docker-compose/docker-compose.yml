@@ -1,0 +1,19 @@
+# https://docs.docker.com/compose/compose-file/compose-file-v3
+version: "3.9" # Tells docker-compose to use version 3.9 features
+services:
+  web:
+    # Specify the image to start the container from.
+    # If image doesn't exist, in this case, it becomes the name of the container
+    image: simple-docker:latest
+    build:
+      context: . # Either a path to a directory containing a Dockerfile, or a url to a git repository.
+      dockerfile: Dockerfile # defaults to 'Dockerfile' so you can omit this line
+    ports: # maps port 3000 on the host to port 3000 in the container
+      - 3000:3000
+    volumes:
+      - ./files:/files # maps the files directory on the host to the /files directory in the container
+      - storage:/storage # maps the storage volume to the /storage directory in the container
+
+volumes:
+  storage:
+    external: true # Tells docker-compose that this volume already exists
