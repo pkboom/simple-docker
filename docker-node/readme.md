@@ -32,7 +32,7 @@ docker run -it -p 3001:3000 simple-docker:latest
 # We can run multiple containers with different host ports mapped.
 
 docker run -it -p 3000:3000 --rm simple-docker:latest
-# Run a command, and delete the created container after exit. Great for one off commands
+# Run a command, and delete the created container after exit. Great for one-off commands
 
 docker container start <container-id>
 # Start <container-id>. You start the container that was already created.

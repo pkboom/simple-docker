@@ -19,7 +19,7 @@ docker ps
 docker ps -a # all
 
 # Remove container
-docker rm
+docker rm <container-id>
 # Stop all containers
 docker stop $(docker ps -a -q)
 # Remove all containers

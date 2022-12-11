@@ -12,7 +12,7 @@ services:
       - 3000:3000
     volumes:
       - ./files:/files # maps the files directory on the host to the /files directory in the container
-      - storage:/storage # maps the storage volume to the /storage directory in the container
+      - storage:/storage # maps the `storage` volume to the /storage directory in the container
 
 volumes:
   storage:

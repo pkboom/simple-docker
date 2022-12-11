@@ -4,7 +4,8 @@
   "description": "```mermaid flowchart LR Dockerfile -->|Build|Image -->|Execute|Container ```",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -14,6 +15,7 @@
   "license": "ISC",
   "homepage": "https://github.com/pkboom/simple-docker#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "nodemon": "^2.0.20"
   }
 }

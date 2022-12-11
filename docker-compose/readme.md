@@ -6,6 +6,14 @@ https://docs.docker.com/compose
 docker compose config
 # Show config
 
+docker compose -f docker-compose.yml -f docker-compose.override.yml config
+# Show config after merging `docker-compose.yml` and `docker-compose.override.yml`.
+# Latter one has priority, overriding.
+# If values are a list, they are merged, not overriding. E.g. ports.
+# You don't need to specify `docker-compose.override.yml`.
+# Docker automatically tries to find it and merge.
+# If -f is specified, only the specified file is checked out, ignoring `docker-compose.override.yml`.
+
 docker compose build
 # Build or rebuild services
 
@@ -26,7 +34,6 @@ docker inspect <container-id>
 # Inspect container
 
 docker compose exec <service-name> <command>
+docker compose exec web bash # run `bash`
 
-# e.g.
-docker compose exec web bash
 ```
