@@ -35,5 +35,4 @@ docker inspect <container-id>
 
 docker compose exec <service-name> <command>
 docker compose exec web bash # run `bash`
-
 ```

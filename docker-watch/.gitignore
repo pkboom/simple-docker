@@ -1,7 +1,0 @@
-node_modules
-.idea
-.vscode
-.git
-docker-compose.override.yml
-.pnpm-store
-.DS_Store
