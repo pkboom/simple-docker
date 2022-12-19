@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+
+# Inspired on https://github.com/adriancooney/Taskfile
+#
+# Install an alias, to be able to simply execute `run`
+# echo 'alias run=./run' >> ~/.aliases
+# echo 'alias dc=docker-compose' >> ~/.bash_aliases
+#
+# alias run=./Taskfile
+# alias help=./Taskfile help
+
+USER=root
+HOST=5.75.130.134
+
+function help {
+    echo "$0 <task> <args>"
+    echo "Tasks:"
+    compgen -A function | cat -n
+}
+
+function default {
+    help
+}
+
+function hello_PHP_LX_Meetup() {
+    # ==> ssh -o "UserKnownHostsFile=/dev/null" root@HOST
+    installDockerCompose
+    adduser --gecos "" forge
+    usermod -aG sudo,docker forge
+    su forge
+    echo 'alias dc=docker-compose' >>~/.bash_aliases
+    cd ~
+    mkdir apps
+    cd apps
+    git clone https://github.com/ijpatricio/inspire.git
+    cp .env.example .env
+    # ==> update VITE_PUSHER_HOST_BROWSER to HOST_IP
+    docker-compose -f docker-compose.demo.yml build
+    docker-compose -f docker-compose.demo.yml up
+    # ==> Open new SSH session, and go with Forge user, to app folder
+    docker-compose -f docker-compose.demo.yml exec -u forge inspire bash
+    php artisan key:generate
+    php artisan migrate
+    # Already (on the docker-compose) php artisan queue:work
+    # docker-compose -f docker-compose.demo.yml up -d --scale inspire-worker=5
+}
+
+function installDockerCompose() {
+    COMPOSE_VERSION=$(curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d\" -f4)
+    sh -c "curl -L https://github.com/docker/compose/releases/download/${COMPOSE_VERSION}/docker-compose-$(uname -s)-$(uname -m) > /usr/local/bin/docker-compose"
+    chmod +x /usr/local/bin/docker-compose
+}
+
+TIMEFORMAT="Task completed in %3lR"
+time "${@:-default}"

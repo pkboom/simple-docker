@@ -1,0 +1,70 @@
+version: '3'
+
+networks:
+  web:
+
+volumes:
+  mysql:
+  redis:
+
+services:
+
+  inspire:
+    build:
+      context: .
+      dockerfile: ./docker/basic/Dockerfile
+    image: inspire:${TAG:-latest}
+    ports: [ '80:80' ]
+    restart: always
+    volumes:
+      - ./.env:/var/www/html/.env
+      - ./storage/app:/var/www/html/storage/app
+      - ./storage/logs:/var/www/html/storage/logs
+    networks:
+      - web
+
+  mysql:
+    image: 'mysql/mysql-server:8.0'
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - web
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+      retries: 3
+      timeout: 5s
+
+  redis:
+    restart: always
+    image: 'redis:alpine'
+    volumes:
+      - redis:/data
+    networks:
+      - web
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      retries: 3
+      timeout: 5s
+
+  soketi:
+    restart: always
+    image: 'quay.io/soketi/soketi:latest-16-alpine'
+    environment:
+      SOKETI_DEFAULT_APP_ID: '${PUSHER_APP_ID}'
+      SOKETI_DEFAULT_APP_KEY: '${PUSHER_APP_KEY}'
+      SOKETI_DEFAULT_APP_SECRET: '${PUSHER_APP_SECRET}'
+      SOKETI_DEBUG: '1'
+      SOKETI_METRICS_SERVER_PORT: '9601'
+    ports:
+      - '${SOKETI_PORT:-6001}:6001'
+      - '${SOKETI_METRICS_SERVER_PORT:-9601}:9601'
+    networks:
+      - web
