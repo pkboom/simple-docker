@@ -34,5 +34,6 @@ docker inspect <container-id>
 # Inspect container
 
 docker compose exec <service-name> <command>
+docker compose exec -u <user> <service> <command>
 docker compose exec web bash # run `bash`
 ```
