@@ -7,10 +7,3 @@ services:
       dockerfile: Dockerfile
     ports:
       - 3000:3000
-    volumes:
-      - ./files:/files
-      - storage:/storage
-
-volumes:
-  storage:
-    external: true
