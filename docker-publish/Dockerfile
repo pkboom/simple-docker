@@ -8,8 +8,4 @@ COPY . .
 
 RUN npm install
 
-# VOLUME \
-#   /app/public \
-#   /app/src
-
 CMD ["npm", "start"]
