@@ -43,4 +43,10 @@ https://hub.docker.com/
 
 # Decker Login
 
+Create access token.
+
 <image width='500' src='images/login.png'>
+
+```sh
+docker login -u <username>
+```
