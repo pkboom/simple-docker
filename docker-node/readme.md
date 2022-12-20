@@ -18,7 +18,6 @@ docker run -it -p 3000:3000 \
   -v $PWD/storage:/storage simple-docker:latest \
   -v simple-storage:/simple-storage \
   simple-docker:latest
-
 # -i: interactive, accepting ctrl-c
 # -t: tty
 # -p: publish a container's port(s) to the host
