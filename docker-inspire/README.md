@@ -41,9 +41,6 @@ php artisan key:generate
 php artisan migrate
 ```
 
-1. `su forge`
-1.
-
 # SSH into server
 
 ```sh

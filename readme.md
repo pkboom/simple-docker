@@ -5,6 +5,8 @@ flowchart LR
 Dockerfile -->|Build|Image -->|Execute|Container
 ```
 
+## Commands
+
 ```sh
 # List images
 docker images
@@ -35,13 +37,55 @@ docker run simple-docker:latest # you can omit `latest`
 
 # Stop a container
 docker stop <container-id> # Or first unique letters
+
+# Pull an image from docker hub
+docker pull <image-name>
+# Now you can see the downloaded image by running `docker images ls`
+
+# Run download image
+docker run --rm -p 3000:3000 <image-name>
+docker run --pull=always --rm -p 3000:3000 <image-name> # Pull the image and run
+
+# bash
+docker exec -it <container-id> bash
+
+# Restart
+docker restart <container-id>
+
+# After changing contents of a container, you can commit it.
+docker commit <container-id> <image-name>
+
+# Push changes to create a new image
+docker push <image-name>
+
+# Remove all stopped containers
+docker container prune -f # -f: forcefully
+
+# Remove unused images
+docker image prune -a -f # -a: all, -f: forcefully
+
+# Remove unused data
+docker system prune
+docker system prune -a -f # all and forcefully
+
+# Display system-wide information
+docker system info
+
+# Show docker disk usage
+docker system df
+
+# Show logs
+docker logs <container-id>
+
+# Display a live stream of container(s) resource usage statistics
+docker stats
 ```
 
 # Docker Hub
 
 https://hub.docker.com/
 
-# Decker Login
+# Docker Login
 
 Create access token.
 
@@ -50,3 +94,5 @@ Create access token.
 ```sh
 docker login -u <username>
 ```
+
+# Docker Pull
